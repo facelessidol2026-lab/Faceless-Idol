@@ -15,6 +15,24 @@ import qrcode
 ROOT = Path(__file__).parent
 DOCS = ROOT / "docs"
 
+THEME_MAP = {
+    1: "theme-prolog",
+    2: "theme-story",
+    3: "theme-arab",
+    4: "theme-spanish",
+    5: "theme-italian",
+    6: "theme-english",
+    7: "theme-indian",
+    8: "theme-turkish",
+    9: "theme-chinese",
+    10: "theme-german",
+    11: "theme-jewish",
+    12: "theme-african",
+    13: "theme-german",
+    14: "theme-human",
+    15: "theme-epilog",
+}
+
 ROMAN_MAP = [
     (1000, "M"), (900, "CM"), (500, "D"), (400, "CD"),
     (100, "C"), (90, "XC"), (50, "L"), (40, "XL"),
@@ -53,6 +71,7 @@ def main():
         portrait_class = " has-portrait" if has_portrait else ""
         portrait_img = (f'<div class="portrait"><img src="../../assets/pictures/person_{num}.jpg" '
                         f'alt="{title}"></div>' if has_portrait else "")
+        theme = THEME_MAP.get(num, "theme-default")
 
         page = (template
                 .replace("{{NUM}}", str(num))
@@ -60,7 +79,8 @@ def main():
                 .replace("{{TITLE}}", title)
                 .replace("{{AUDIO}}", f"../../audio/{audio_file}")
                 .replace("{{PORTRAIT_CLASS}}", portrait_class)
-                .replace("{{PORTRAIT_IMG}}", portrait_img))
+                .replace("{{PORTRAIT_IMG}}", portrait_img)
+                .replace("{{THEME}}", theme))
 
         page_dir = ch_dir / str(num)
         page_dir.mkdir(parents=True, exist_ok=True)

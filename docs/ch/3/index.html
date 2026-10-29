@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0E0D0C">
-<title>Gün 1- Gəzər -(Ərəb) — bə 3</title>
+<title>Gün 1- Gəzər -(Ərəb) — Simasız Büt — bə 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -15,6 +15,7 @@
     --paper-dim:#8A8378;
     --gold:#B08D57;
     --wine:#7A2E2E;
+    --accent:#B08D57;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{height:100%;}
@@ -28,6 +29,8 @@
     overflow:hidden;
     -webkit-tap-highlight-color:transparent;
   }
+
+  /* ===== БАЗОВЫЙ ДИЗАЙН (утверждён) ===== */
   .numeral{
     position:absolute;
     inset:0;
@@ -42,6 +45,7 @@
     user-select:none;
     pointer-events:none;
     letter-spacing:0.02em;
+    z-index:0;
   }
   .stage{
     position:relative;
@@ -95,7 +99,7 @@
     border-radius:50%;
     background:
       radial-gradient(circle at 50% 50%, var(--bg) 62%, transparent 63%),
-      conic-gradient(var(--gold) calc(var(--p)*1%), rgba(176,141,87,0.18) 0);
+      conic-gradient(var(--accent) calc(var(--p)*1%), rgba(176,141,87,0.18) 0);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -142,11 +146,165 @@
     .seal.playing{ animation:none; }
     .overlay .eyebrow{ animation:none; }
   }
+
+  /* ===== ОРНАМЕНТЫ ПО НАЦИОНАЛЬНОСТЯМ (фоновые узоры) ===== */
+  .ornament{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:0.06;
+  }
+
+  /* 1. Араб — исламская геометрия (8-конечная звезда) */
+  body.theme-arab .ornament{
+    background-image:
+      radial-gradient(circle at 50% 50%, var(--accent) 1px, transparent 1px),
+      repeating-conic-gradient(var(--accent) 0deg 15deg, transparent 15deg 30deg);
+    background-size: 60px 60px, 120px 120px;
+  }
+  body.theme-arab{ --accent:#2E7D32; }
+
+  /* 2. Испан — мавританская плитка */
+  body.theme-spanish .ornament{
+    background-image:
+      linear-gradient(45deg, var(--accent) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--accent) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--accent) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--accent) 75%);
+    background-size: 40px 40px;
+    background-position: 0 0, 0 20px, 20px -20px, -20px 0;
+  }
+  body.theme-spanish{ --accent:#C62828; }
+
+  /* 3. Итальян — ренессансная виноградная лоза */
+  body.theme-italian .ornament{
+    background-image:
+      radial-gradient(ellipse at 30% 30%, var(--accent) 2px, transparent 2px),
+      radial-gradient(ellipse at 70% 70%, var(--accent) 2px, transparent 2px),
+      repeating-linear-gradient(60deg, transparent 0 20px, var(--accent) 20px 21px, transparent 21px 40px);
+    background-size: 80px 80px;
+  }
+  body.theme-italian{ --accent:#BF360C; }
+
+  /* 4. Английский — кельтский узел */
+  body.theme-english .ornament{
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0 10px, var(--accent) 10px 11px, transparent 11px 20px),
+      repeating-linear-gradient(90deg, transparent 0 10px, var(--accent) 10px 11px, transparent 11px 20px);
+    background-size: 20px 20px;
+    opacity:0.04;
+  }
+  body.theme-english{ --accent:#1565C0; }
+
+  /* 5. Индийский — мандала лотоса */
+  body.theme-indian .ornament{
+    background-image:
+      radial-gradient(circle at 50% 50%, var(--accent) 1px, transparent 1px),
+      radial-gradient(circle at 50% 50%, transparent 20px, var(--accent) 21px, transparent 22px),
+      radial-gradient(circle at 50% 50%, transparent 40px, var(--accent) 41px, transparent 42px);
+    background-size: 100px 100px;
+  }
+  body.theme-indian{ --accent:#FF8F00; }
+
+  /* 6. Турецкий — османский тюльпан */
+  body.theme-turkish .ornament{
+    background-image:
+      radial-gradient(ellipse at 50% 40%, var(--accent) 3px, transparent 3px),
+      radial-gradient(ellipse at 30% 60%, var(--accent) 2px, transparent 2px),
+      radial-gradient(ellipse at 70% 60%, var(--accent) 2px, transparent 2px);
+    background-size: 50px 50px;
+  }
+  body.theme-turkish{ --accent:#00838F; }
+
+  /* 7. Китайский — облака */
+  body.theme-chinese .ornament{
+    background-image:
+      radial-gradient(ellipse at 20% 30%, var(--accent) 8px, transparent 8px),
+      radial-gradient(ellipse at 60% 20%, var(--accent) 6px, transparent 6px),
+      radial-gradient(ellipse at 80% 60%, var(--accent) 10px, transparent 10px),
+      radial-gradient(ellipse at 40% 80%, var(--accent) 7px, transparent 7px);
+    background-size: 120px 120px;
+  }
+  body.theme-chinese{ --accent:#D32F2F; }
+
+  /* 8 & 13. Немецкий — готический трилистник */
+  body.theme-german .ornament{
+    background-image:
+      radial-gradient(circle at 50% 30%, var(--accent) 2px, transparent 2px),
+      radial-gradient(circle at 30% 70%, var(--accent) 2px, transparent 2px),
+      radial-gradient(circle at 70% 70%, var(--accent) 2px, transparent 2px);
+    background-size: 40px 40px;
+  }
+  body.theme-german{ --accent:#424242; }
+
+  /* 9. Еврейский — звезда Давида */
+  body.theme-jewish .ornament{
+    background-image:
+      linear-gradient(30deg, var(--accent) 12%, transparent 12%),
+      linear-gradient(150deg, var(--accent) 12%, transparent 12%),
+      linear-gradient(270deg, var(--accent) 12%, transparent 12%);
+    background-size: 60px 60px;
+    opacity:0.03;
+  }
+  body.theme-jewish{ --accent:#1976D2; }
+
+  /* 10. Африканский — адигнкра */
+  body.theme-african .ornament{
+    background-image:
+      repeating-linear-gradient(45deg, var(--accent) 0 1px, transparent 1px 10px),
+      repeating-linear-gradient(-45deg, var(--accent) 0 1px, transparent 1px 10px);
+    background-size: 20px 20px;
+    opacity:0.05;
+  }
+  body.theme-african{ --accent:#795548; }
+
+  /* 11. Человек/Универсальный — концентрические круги */
+  body.theme-human .ornament{
+    background-image:
+      radial-gradient(circle at 50% 50%, transparent 0 30px, var(--accent) 30px 31px, transparent 31px),
+      radial-gradient(circle at 50% 50%, transparent 0 60px, var(--accent) 60px 61px, transparent 61px);
+    background-size: 150px 150px;
+    opacity:0.04;
+  }
+  body.theme-human{ --accent:#757575; }
+
+  /* Пролог — золотые лучи */
+  body.theme-prolog .ornament{
+    background-image:
+      repeating-conic-gradient(var(--accent) 0deg 2deg, transparent 2deg 15deg);
+    background-size: 100% 100%;
+    opacity:0.03;
+  }
+  body.theme-prolog{ --accent:#B08D57; }
+
+  /* История — волны */
+  body.theme-story .ornament{
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0 20px, var(--accent) 20px 21px, transparent 21px 40px);
+    background-size: 100% 40px;
+    opacity:0.04;
+  }
+  body.theme-story{ --accent:#8A8378; }
+
+  /* Эпилог — звёздное небо */
+  body.theme-epilog .ornament{
+    background-image:
+      radial-gradient(circle at 20% 30%, var(--accent) 1px, transparent 1px),
+      radial-gradient(circle at 60% 20%, var(--accent) 1px, transparent 1px),
+      radial-gradient(circle at 80% 60%, var(--accent) 1px, transparent 1px),
+      radial-gradient(circle at 40% 80%, var(--accent) 1px, transparent 1px),
+      radial-gradient(circle at 10% 70%, var(--accent) 1px, transparent 1px);
+    background-size: 100px 100px;
+    opacity:0.05;
+  }
+  body.theme-epilog{ --accent:#B08D57; }
 </style>
 </head>
-<body>
+<body class="theme-arab">
 
   <div class="numeral">III</div>
+  <div class="ornament"></div>
 
   <div class="stage has-portrait">
     <div class="eyebrow">Bəb 3</div>
