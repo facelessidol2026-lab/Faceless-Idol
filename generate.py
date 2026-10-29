@@ -2,7 +2,7 @@
 """
 Генерирует:
   docs/ch/<N>/index.html  — сəhifə böyükilə plejerlə
-  docs/qr/ch<N>.svg       — vektorlu QR-kod, o səhifəyə yönləndirir
+  docs/qr/ch<N>.png       — QR-kod, o səhifəyə yönləndirir
 
 İstifadə:
   python generate.py --base-url https://USERNAME.github.io/REPO
@@ -11,7 +11,6 @@ import json
 import argparse
 from pathlib import Path
 import qrcode
-from qrcode.image.svg import SvgPathImage
 
 ROOT = Path(__file__).parent
 DOCS = ROOT / "docs"
@@ -68,11 +67,8 @@ def main():
         (page_dir / "index.html").write_text(page, encoding="utf-8")
 
         chapter_url = f"{base_url}/ch/{num}/"
-        qr = qrcode.QRCode(box_size=12, border=3)
-        qr.add_data(chapter_url)
-        qr.make(fit=True)
-        img = qr.make_image(image_factory=SvgPathImage)
-        img.save(qr_dir / f"ch{num}.svg")
+        img = qrcode.make(chapter_url, box_size=12, border=3)
+        img.save(qr_dir / f"ch{num}.png")
 
         print(f"Bəb {num:>2} | {title:<30} | {chapter_url}")
 

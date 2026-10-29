@@ -27,7 +27,7 @@ python generate.py --base-url https://facelessidol2026-lab.github.io/Faceless-Id
 
 Yaradılır:
 - `docs/ch/<N>/index.html` — hər səhnə üçün indipendənt plejer səhifəsi
-- `docs/qr/ch<N>.svg` — vektorlu QR-kod, o səhifəyə yönləndirir
+- `docs/qr/ch<N>.png` — vektorlu QR-kod, o səhifəyə yönləndirir
 
 ### GitHub Pages-də públicas edin
 
@@ -37,7 +37,7 @@ Yaradılır:
 
 ### QR-kodları
 
-`docs/qr/ch1.svg` … `ch15.svg` fayllarını kitabın məketinə daxil edin.
+`docs/qr/ch1.png` … `ch15.png` fayllarını kitabın məketinə daxil edin.
 
 ---
 
@@ -64,7 +64,7 @@ python generate.py --base-url https://facelessidol2026-lab.github.io/Faceless-Id
 
 Создаётся:
 - `docs/ch/<N>/index.html` — страница главы с плеером
-- `docs/qr/ch<N>.svg` — векторный QR-код на страницу главы
+- `docs/qr/ch<N>.png` — векторный QR-код на страницу главы
 
 ### Публикация на GitHub Pages
 
@@ -74,7 +74,7 @@ python generate.py --base-url https://facelessidol2026-lab.github.io/Faceless-Id
 
 ### QR-коды
 
-Вставьте `docs/qr/ch1.svg` … `ch15.svg` в макет книги.
+Вставьте `docs/qr/ch1.png` … `ch15.png` в макет книги.
 
 ---
 
@@ -101,7 +101,7 @@ python generate.py --base-url https://facelessidol2026-lab.github.io/Faceless-Id
 
 Creates:
 - `docs/ch/<N>/index.html` — chapter page with player
-- `docs/qr/ch<N>.svg` — vector QR code to the chapter page
+- `docs/qr/ch<N>.png` — vector QR code to the chapter page
 
 ### Publish on GitHub Pages
 
@@ -111,7 +111,7 @@ Creates:
 
 ### QR codes
 
-Insert `docs/qr/ch1.svg` … `ch15.svg` into the book layout.
+Insert `docs/qr/ch1.png` … `ch15.png` into the book layout.
 
 ---
 
