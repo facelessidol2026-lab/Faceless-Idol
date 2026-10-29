@@ -7,16 +7,19 @@
 <title>Gün 6 -Döyüşçü - Türk — Simasız Büt — fəsil 8</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Work+Sans:wght@300;400;500&family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Arabic:wght@300;400&family=Noto+Sans+Devanagari:wght@300;400&family=Noto+Sans+SC:wght@300;400&family=Noto+Sans+Hebrew:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Work+Sans:wght@300;400;500&family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Arabic:wght@300;400;700&family=Noto+Sans+Devanagari:wght@300;400;700&family=Noto+Sans+SC:wght@300;400;700&family=Noto+Sans+Hebrew:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0E0D0C;
+    --bg2:#15130F;
     --paper:#E8E1D0;
     --paper-dim:#8A8378;
     --gold:#B08D57;
     --wine:#7A2E2E;
     --accent:#B08D57;
     --astral:#7B68EE;
+    --soul:#FFD700;
+    --glow:rgba(176,141,87,0.15);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{height:100%;}
@@ -31,7 +34,46 @@
     -webkit-tap-highlight-color:transparent;
   }
 
-  /* ===== БАЗОВЫЙ ДИЗАЙН ===== */
+  /* ===== ФОН ===== */
+  .bg-layer{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    background: radial-gradient(ellipse at 50% 50%, var(--bg2) 0%, var(--bg) 100%);
+  }
+
+  /* ===== ОРНАМЕНТ (фоновый, видимый) ===== */
+  .ornament{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    opacity:0.18;
+    background-repeat:repeat;
+    background-position:center;
+    mix-blend-mode:screen;
+  }
+  .ornament-img{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    opacity:0.25;
+    background-repeat:repeat;
+    background-position:center;
+    background-size:300px 300px;
+    mix-blend-mode:screen;
+  }
+
+  /* ===== 3D КОСМОС ===== */
+  #cosmos{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+  }
+
+  /* ===== НУМЕРАЛ (фоновый) ===== */
   .numeral{
     position:absolute;
     inset:0;
@@ -39,22 +81,92 @@
     align-items:center;
     justify-content:center;
     font-family:'Cormorant Garamond',serif;
-    font-size:min(45vw,45vh);
+    font-size:min(40vw,40vh);
     font-weight:600;
     color:var(--paper);
-    opacity:0.025;
+    opacity:0.02;
     user-select:none;
     pointer-events:none;
     letter-spacing:0.02em;
-    z-index:0;
+    z-index:2;
   }
+
+  /* ===== ПЛАВАЮЩИЕ БУКВЫ ===== */
+  .floating-letters{
+    position:fixed;
+    inset:0;
+    z-index:2;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  .floating-letter{
+    position:absolute;
+    font-size:clamp(1.5rem, 4vw, 3rem);
+    opacity:0;
+    color:var(--accent);
+    animation: floatLetter 12s ease-in-out infinite;
+    user-select:none;
+    pointer-events:none;
+    font-family: 'Amiri', 'Noto Sans Arabic', 'Noto Sans Devanagari', 'Noto Sans SC', 'Noto Sans Hebrew', serif;
+    text-shadow: 0 0 10px var(--accent);
+  }
+  @keyframes floatLetter{
+    0%{ opacity:0; transform:translateY(100vh) scale(0.5) rotate(0deg); }
+    10%{ opacity:0.25; }
+    50%{ opacity:0.4; transform:translateY(-20vh) scale(1) rotate(10deg); }
+    90%{ opacity:0.15; }
+    100%{ opacity:0; transform:translateY(-120vh) scale(0.5) rotate(-10deg); }
+  }
+
+  /* ===== АСТРАЛЬНАЯ НИТЬ ===== */
+  .astral-thread{
+    position:fixed;
+    top:0;
+    left:50%;
+    width:2px;
+    height:100%;
+    background:linear-gradient(to bottom, transparent 0%, var(--astral) 20%, var(--soul) 50%, var(--astral) 80%, transparent 100%);
+    opacity:0.12;
+    z-index:1;
+    pointer-events:none;
+    animation:threadPulse 4s ease-in-out infinite;
+  }
+  @keyframes threadPulse{
+    0%,100%{ opacity:0.08; }
+    50%{ opacity:0.2; }
+  }
+
+  /* ===== ЧАСТИЦЫ (ЗВЁЗДЫ) ===== */
+  .particles{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  .particle{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:var(--paper);
+    border-radius:50%;
+    opacity:0;
+    animation:starFloat 8s ease-in-out infinite;
+  }
+  @keyframes starFloat{
+    0%{ opacity:0; transform:translateY(0) scale(0.5); }
+    50%{ opacity:0.5; transform:translateY(-40px) scale(1); }
+    100%{ opacity:0; transform:translateY(-80px) scale(0.5); }
+  }
+
+  /* ===== ГЛАВНАЯ СЦЕНА ===== */
   .stage{
     position:relative;
     z-index:10;
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:1rem;
+    gap:1.2rem;
     padding:1.5rem;
     text-align:center;
     max-width:90vw;
@@ -62,39 +174,41 @@
     overflow-y:auto;
   }
   .eyebrow{
-    font-size:0.68rem;
-    letter-spacing:0.28em;
+    font-size:0.65rem;
+    letter-spacing:0.25em;
     text-transform:uppercase;
     color:var(--paper-dim);
     font-weight:400;
     opacity:0;
-    animation:fadeIn 0.7s ease 0.1s forwards;
+    animation:fadeIn 0.6s ease 0.1s forwards;
   }
   h1{
     font-family:'Cormorant Garamond',serif;
     font-weight:400;
     font-style:italic;
-    font-size:clamp(1.3rem,4vw,2rem);
-    line-height:1.3;
+    font-size:clamp(1.4rem,4.5vw,2.2rem);
+    line-height:1.25;
     color:var(--paper);
-    max-width:20ch;
+    max-width:22ch;
     opacity:0;
-    animation:fadeIn 0.7s ease 0.25s forwards;
+    animation:fadeIn 0.6s ease 0.2s forwards;
+    text-shadow:0 0 20px rgba(176,141,87,0.1);
   }
 
-  /* ===== ФОТО ПЕРСОНАЖА (сверху, во весь рост) ===== */
+  /* ===== ФОТО ПЕРСОНАЖА ===== */
   .portrait{
     position:relative;
-    width:min(35vw,160px);
-    height:min(25vh,180px);
-    border-radius:10px;
+    width:min(40vw,170px);
+    height:min(28vh,200px);
+    border-radius:12px;
     overflow:hidden;
-    border:1px solid rgba(232,225,208,0.12);
+    border:1px solid rgba(232,225,208,0.15);
     background:var(--bg);
     display:none;
     margin:0 auto;
     opacity:0;
-    animation:fadeIn 0.7s ease 0.05s forwards;
+    animation:fadeIn 0.6s ease 0.05s forwards;
+    box-shadow:0 4px 20px rgba(0,0,0,0.5);
   }
   .portrait img{
     width:100%;
@@ -105,8 +219,8 @@
   .has-portrait .portrait{ display:block; }
   @media (min-width:768px){
     .portrait{
-      width:min(20vw,180px);
-      height:min(28vh,200px);
+      width:min(22vw,200px);
+      height:min(32vh,240px);
     }
   }
 
@@ -116,13 +230,14 @@
     align-items:center;
     gap:0.5rem;
     opacity:0;
-    animation:fadeIn 0.7s ease 0.35s forwards;
+    animation:fadeIn 0.6s ease 0.3s forwards;
   }
   .profession svg{
     width:20px;
     height:20px;
     fill:var(--accent);
-    opacity:0.8;
+    opacity:0.9;
+    filter:drop-shadow(0 0 4px var(--accent));
   }
   .profession span{
     font-size:0.68rem;
@@ -136,44 +251,47 @@
   .seal{
     --p:0;
     position:relative;
-    width:100px;
-    height:100px;
+    width:110px;
+    height:110px;
     border-radius:50%;
     background:
-      radial-gradient(circle at 50% 50%, var(--bg) 62%, transparent 63%),
-      conic-gradient(var(--accent) calc(var(--p)*1%), rgba(176,141,87,0.18) 0);
+      radial-gradient(circle at 50% 50%, var(--bg) 60%, transparent 61%),
+      conic-gradient(var(--accent) calc(var(--p)*1%), rgba(176,141,87,0.15) 0);
     display:flex;
     align-items:center;
     justify-content:center;
     cursor:pointer;
-    transition:transform .25s ease;
+    transition:transform .25s ease, box-shadow .25s ease;
     opacity:0;
-    animation:fadeIn 0.7s ease 0.45s forwards;
+    animation:fadeIn 0.6s ease 0.4s forwards;
     z-index:20;
+    box-shadow:0 0 20px rgba(176,141,87,0.1);
   }
   .seal:active{ transform:scale(0.96); }
   .seal::before{
     content:"";
     position:absolute;
-    inset:5px;
+    inset:6px;
     border-radius:50%;
-    border:1px solid rgba(232,225,208,0.15);
+    border:1px solid rgba(232,225,208,0.2);
   }
-  .seal svg{ width:35%; height:35%; fill:var(--paper); }
+  .seal svg{ width:32%; height:32%; fill:var(--paper); }
   .seal.playing svg.icon-play{ display:none; }
   .seal:not(.playing) svg.icon-pause{ display:none; }
-  .seal.playing{ animation: breathe 3.2s ease-in-out infinite; }
+  .seal.playing{ animation: breathe 3s ease-in-out infinite; }
   @keyframes breathe{
     0%,100%{ box-shadow:0 0 0 0 rgba(176,141,87,0); }
-    50%{ box-shadow:0 0 16px 2px rgba(176,141,87,0.16); }
+    50%{ box-shadow:0 0 30px 4px rgba(176,141,87,0.2); }
   }
   .meta{
     font-size:0.72rem;
     color:var(--paper-dim);
     letter-spacing:0.04em;
     opacity:0;
-    animation:fadeIn 0.7s ease 0.55s forwards;
+    animation:fadeIn 0.6s ease 0.5s forwards;
   }
+
+  /* ===== OVERLAY ===== */
   .overlay{
     position:fixed;
     inset:0;
@@ -188,140 +306,8 @@
     transition:opacity .6s ease;
   }
   .overlay .eyebrow{ animation:pulse 2s ease-in-out infinite; }
-  @keyframes pulse{ 0%,100%{opacity:0.5;} 50%{opacity:1;} }
+  @keyframes pulse{ 0%,100%{opacity:0.4;} 50%{opacity:1;} }
   .hidden{ display:none !important; }
-  @media (prefers-reduced-motion: reduce){
-    .seal.playing{ animation:none; }
-    .overlay .eyebrow{ animation:none; }
-  }
-  @keyframes fadeIn{
-    from{ opacity:0; transform:translateY(10px); }
-    to{ opacity:1; transform:translateY(0); }
-  }
-
-  /* ===== ОРНАМЕНТЫ ===== */
-  .ornament{
-    position:fixed;
-    inset:0;
-    z-index:0;
-    pointer-events:none;
-    opacity:0.08;
-    background-repeat:repeat;
-    background-position:center;
-    mix-blend-mode:screen;
-  }
-
-  /* 1. PROLOQ — золотые лучи */
-  body.theme-prolog{ --accent:#B08D57; }
-  body.theme-prolog .ornament{
-    background: repeating-conic-gradient(var(--accent) 0deg 1deg, transparent 1deg 12deg);
-    opacity:0.04;
-  }
-
-  /* 2. HEKAYƏ — волны */
-  body.theme-story{ --accent:#8A8378; }
-  body.theme-story .ornament{
-    background: repeating-linear-gradient(0deg, transparent 0 18px, var(--accent) 18px 19px, transparent 19px 36px);
-    opacity:0.04;
-  }
-
-  /* 3. Ərəb — исламский фрактал */
-  body.theme-arab{ --accent:#1B5E20; }
-  body.theme-arab .ornament{
-    background: repeating-conic-gradient(var(--accent) 0deg 15deg, transparent 15deg 30deg);
-    opacity:0.05;
-  }
-
-  /* 4. İspan — фламенко (движение) */
-  body.theme-spanish{ --accent:#C62828; }
-  body.theme-spanish .ornament{
-    background: repeating-linear-gradient(45deg, transparent 0 10px, var(--accent) 10px 11px, transparent 11px 20px),
-                repeating-linear-gradient(-45deg, transparent 0 10px, var(--accent) 10px 11px, transparent 11px 20px);
-    opacity:0.04;
-    animation: flamencoMove 8s linear infinite;
-  }
-  @keyframes flamencoMove{
-    0%{ background-position: 0 0, 0 0; }
-    100%{ background-position: 40px 40px, -40px 40px; }
-  }
-
-  /* 5. İtalyan — реальный PNG */
-  body.theme-italian{ --accent:#BF360C; }
-
-  /* 6. İngilis — реальный SVG */
-  body.theme-english{ --accent:#C62828; }
-
-  /* 7. Hindistanlı — реальный SVG */
-  body.theme-indian{ --accent:#FF6F00; }
-
-  /* 8. Türk — реальный SVG */
-  body.theme-turkish{ --accent:#00695C; }
-
-  /* 9. Çinli — реальный SVG */
-  body.theme-chinese{ --accent:#C62828; }
-
-  /* 10 & 13. Alman — готический трилистник */
-  body.theme-german{ --accent:#424242; }
-  body.theme-german .ornament{
-    background-image:
-      radial-gradient(circle at 50% 30%, var(--accent) 3px, transparent 3px),
-      radial-gradient(circle at 30% 70%, var(--accent) 3px, transparent 3px),
-      radial-gradient(circle at 70% 70%, var(--accent) 3px, transparent 3px);
-    background-size: 40px 40px;
-    opacity:0.06;
-  }
-
-  /* 11. Yahudo — реальный SVG */
-  body.theme-jewish{ --accent:#1976D2; }
-
-  /* 12. Afrikalı — реальный SVG */
-  body.theme-african{ --accent:#795548; }
-
-  /* 14. Bəşəriyyət — спираль */
-  body.theme-human{ --accent:#757575; }
-  body.theme-human .ornament{
-    background-image:
-      radial-gradient(circle at 50% 50%, transparent 0 10px, var(--accent) 10px 11px, transparent 11px),
-      radial-gradient(circle at 50% 50%, transparent 0 25px, var(--accent) 25px 26px, transparent 26px);
-    background-size: 100px 100px;
-    opacity:0.04;
-  }
-
-  /* 15. Epiloq */
-  body.theme-epilog{ --accent:#B08D57; }
-  body.theme-epilog .ornament{
-    background-image:
-      radial-gradient(circle at 20% 30%, var(--accent) 1px, transparent 1px),
-      radial-gradient(circle at 60% 20%, var(--accent) 1px, transparent 1px),
-      radial-gradient(circle at 80% 60%, var(--accent) 1px, transparent 1px);
-    background-size: 100px 100px;
-    opacity:0.05;
-  }
-
-  /* ===== ПЛАВАЮЩИЕ БУКВЫ ===== */
-  .floating-letters{
-    position:fixed;
-    inset:0;
-    z-index:0;
-    pointer-events:none;
-    overflow:hidden;
-  }
-  .floating-letter{
-    position:absolute;
-    font-size:clamp(1.5rem, 4vw, 3rem);
-    opacity:0;
-    color:var(--accent);
-    animation: floatLetter 12s ease-in-out infinite;
-    user-select:none;
-    pointer-events:none;
-  }
-  @keyframes floatLetter{
-    0%{ opacity:0; transform:translateY(100vh) scale(0.5); }
-    10%{ opacity:0.15; }
-    50%{ opacity:0.25; transform:translateY(-20vh) scale(1); }
-    90%{ opacity:0.1; }
-    100%{ opacity:0; transform:translateY(-120vh) scale(0.5); }
-  }
 
   /* ===== КАРТА ===== */
   .map-badge{
@@ -333,27 +319,135 @@
     letter-spacing:0.12em;
     text-transform:uppercase;
     color:var(--paper-dim);
-    border:1px solid rgba(232,225,208,0.12);
-    padding:0.3rem 0.6rem;
+    border:1px solid rgba(232,225,208,0.15);
+    padding:0.35rem 0.7rem;
     border-radius:4px;
-    background:rgba(14,13,12,0.6);
-    backdrop-filter:blur(4px);
+    background:rgba(14,13,12,0.7);
+    backdrop-filter:blur(8px);
     opacity:0;
-    animation:fadeIn 0.8s ease 0.8s forwards;
+    animation:fadeIn 0.6s ease 0.9s forwards;
+  }
+
+  /* ===== ТЕМЫ (цвета) ===== */
+  body.theme-prolog{ --accent:#B08D57; }
+  body.theme-story{ --accent:#8A8378; }
+  body.theme-arab{ --accent:#1B5E20; }
+  body.theme-spanish{ --accent:#C62828; }
+  body.theme-italian{ --accent:#BF360C; }
+  body.theme-english{ --accent:#C62828; }
+  body.theme-indian{ --accent:#FF6F00; }
+  body.theme-turkish{ --accent:#00695C; }
+  body.theme-chinese{ --accent:#C62828; }
+  body.theme-german{ --accent:#424242; }
+  body.theme-jewish{ --accent:#1976D2; }
+  body.theme-african{ --accent:#795548; }
+  body.theme-human{ --accent:#757575; }
+  body.theme-epilog{ --accent:#B08D57; }
+
+  /* ===== ОРНАМЕНТЫ CSS (для глав без изображений) ===== */
+  body.theme-prolog .ornament{
+    background: repeating-conic-gradient(var(--accent) 0deg 1deg, transparent 1deg 12deg);
+    opacity:0.06;
+  }
+  body.theme-story .ornament{
+    background: repeating-linear-gradient(0deg, transparent 0 18px, var(--accent) 18px 19px, transparent 19px 36px);
+    opacity:0.06;
+  }
+  body.theme-arab .ornament{
+    background: repeating-conic-gradient(var(--accent) 0deg 15deg, transparent 15deg 30deg);
+    opacity:0.12;
+  }
+  body.theme-turkish .ornament{
+    background-image:
+      radial-gradient(circle at 25% 25%, var(--accent) 12px, transparent 12px),
+      radial-gradient(circle at 75% 25%, var(--accent) 8px, transparent 8px),
+      radial-gradient(circle at 50% 75%, var(--accent) 14px, transparent 14px);
+    background-size: 80px 80px;
+    opacity:0.2;
+  }
+  body.theme-german .ornament{
+    background-image:
+      radial-gradient(circle at 50% 30%, var(--accent) 3px, transparent 3px),
+      radial-gradient(circle at 30% 70%, var(--accent) 3px, transparent 3px),
+      radial-gradient(circle at 70% 70%, var(--accent) 3px, transparent 3px);
+    background-size: 40px 40px;
+    opacity:0.1;
+  }
+  body.theme-jewish .ornament{
+    background-image:
+      radial-gradient(circle at 50% 30%, var(--accent) 3px, transparent 3px),
+      radial-gradient(circle at 20% 50%, var(--accent) 2px, transparent 2px),
+      radial-gradient(circle at 80% 50%, var(--accent) 2px, transparent 2px);
+    background-size: 60px 60px;
+    opacity:0.15;
+  }
+  body.theme-african .ornament{
+    background-image:
+      radial-gradient(circle at 50% 50%, var(--accent) 3px, transparent 3px),
+      linear-gradient(45deg, var(--accent) 1px, transparent 1px),
+      linear-gradient(-45deg, var(--accent) 1px, transparent 1px);
+    background-size: 50px 50px, 25px 25px, 25px 25px;
+    opacity:0.15;
+  }
+  body.theme-human .ornament{
+    background-image:
+      radial-gradient(circle at 50% 50%, transparent 0 10px, var(--accent) 10px 11px, transparent 11px),
+      radial-gradient(circle at 50% 50%, transparent 0 25px, var(--accent) 25px 26px, transparent 26px);
+    background-size: 100px 100px;
+    opacity:0.1;
+  }
+  body.theme-epilog .ornament{
+    background-image:
+      radial-gradient(circle at 20% 30%, var(--accent) 1px, transparent 1px),
+      radial-gradient(circle at 60% 20%, var(--accent) 1px, transparent 1px),
+      radial-gradient(circle at 80% 60%, var(--accent) 1px, transparent 1px);
+    background-size: 100px 100px;
+    opacity:0.1;
+  }
+
+  /* ===== СТИЛИ ДЛЯ РЕАЛЬНЫХ ИЗОБРАЖЕНИЙ ===== */
+  body.theme-spanish .ornament-img{
+    background-image: url('../../assets/ornaments/spanish_flamenco.png');
+  }
+  body.theme-italian .ornament-img{
+    background-image: url('../../assets/ornaments/italian_venetian_mask.png');
+  }
+  body.theme-english .ornament-img{
+    background-image: url('../../assets/ornaments/english_celtic_knot.png');
+  }
+  body.theme-indian .ornament-img{
+    background-image: url('../../assets/ornaments/indian_mandala.svg');
+  }
+  body.theme-chinese .ornament-img{
+    background-image: url('../../assets/ornaments/chinese_dragon.svg');
+  }
+  body.theme-jewish .ornament-img{
+    background-image: url('../../assets/ornaments/jewish_menorah.svg');
+    filter: invert(1) brightness(1.5);
+  }
+  body.theme-african .ornament-img{
+    background-image: url('../../assets/ornaments/african_gye_nyame.svg');
   }
 
   @media (prefers-reduced-motion: reduce){
     .seal.playing{ animation:none; }
     .overlay .eyebrow{ animation:none; }
-    .floating-letter{ animation:none; opacity:0.1; }
-    body.theme-spanish .ornament{ animation:none; }
+  }
+  @keyframes fadeIn{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
   }
 </style>
 </head>
 <body class="theme-turkish">
 
+  <!-- 3D КОСМОС -->
+  <canvas id="cosmos"></canvas>
+
+  <div class="bg-layer"></div>
   <div class="numeral">VIII</div>
-  <div class="ornament" style="background-image: url('../../assets/ornaments/turkish_tulip.svg'); background-size: 200px 200px; background-repeat: repeat; opacity: 0.08;"></div>
+  <div class="ornament" style=""></div>
+  <div class="ornament-img"></div>
   <div class="floating-letters" id="floatingLetters"></div>
 
   <div class="stage has-portrait">
@@ -407,7 +501,7 @@
       color: 0xE8E1D0,
       size: 0.03,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.5,
       sizeAttenuation: true
     });
     var stars = new THREE.Points(starGeo, starMat);
@@ -417,7 +511,7 @@
     var nebulaMat = new THREE.MeshBasicMaterial({
       color: new THREE.Color('#00695C'),
       transparent: true,
-      opacity: 0.025,
+      opacity: 0.02,
       side: THREE.BackSide
     });
     var nebula = new THREE.Mesh(nebulaGeo, nebulaMat);
@@ -427,7 +521,7 @@
     var soulMat = new THREE.MeshBasicMaterial({
       color: new THREE.Color('#40E0D0'),
       transparent: true,
-      opacity: 0.1
+      opacity: 0.08
     });
     var soul = new THREE.Mesh(soulGeo, soulMat);
     scene.add(soul);
@@ -444,8 +538,8 @@
       stars.rotation.x += 0.0001;
       soul.rotation.y += 0.005;
       soul.rotation.x += 0.003;
-      camera.position.x += (mouseX * 0.25 - camera.position.x) * 0.02;
-      camera.position.y += (-mouseY * 0.25 - camera.position.y) * 0.02;
+      camera.position.x += (mouseX * 0.2 - camera.position.x) * 0.02;
+      camera.position.y += (-mouseY * 0.2 - camera.position.y) * 0.02;
       camera.lookAt(scene.position);
       renderer.render(scene, camera);
     }
@@ -461,7 +555,7 @@
   /* ===== ПЛАВАЮЩИЕ БУКВЫ ===== */
   (function(){
     var container = document.getElementById('floatingLetters');
-    var letters = '𐱃,𐱁,𐱂,𐱄,𐱅,𐱆,𐱇,𐱈,𐱉,𐱊,𐱋,𐱌'.split(',');
+    var letters = '𐱃,𐱁,𐱂,𐱄,𐱅,𐱆,𐱇,𐱈,𐱉,𐱊,𐱋,𐱌,𐰀,𐰁,𐰂,𐰃,𐰄,𐰅,𐰆,𐰇,𐰈,𐰉,𐰊,𐰋,𐰌,𐰍,𐰎,𐰏,𐰐,𐰑,𐰒,𐰓,𐰔,𐰕,𐰖,𐰗,𐰘,𐰙,𐰚,𐰛,𐰜,𐰝,𐰞,𐰟,𐰠,𐰡,𐰢,𐰣,𐰤,𐰥,𐰦,𐰧,𐰨,𐰩,𐰪,𐰫,𐰬,𐰭,𐰮,𐰯,𐰰,𐰱,𐰲,𐰳,𐰴,𐰵,𐰶,𐰷,𐰸,𐰹,𐰺,𐰻,𐰼,𐰽,𐰾,𐰿'.split(',');
     var count = 15;
     for(var i = 0; i < count; i++){
       var el = document.createElement('div');

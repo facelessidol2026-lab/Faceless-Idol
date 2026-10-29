@@ -15,6 +15,12 @@ import qrcode
 ROOT = Path(__file__).parent
 DOCS = ROOT / "docs"
 
+ROMAN_MAP = [
+    (1000, "M"), (900, "CM"), (500, "D"), (400, "CD"),
+    (100, "C"), (90, "XC"), (50, "L"), (40, "XL"),
+    (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I"),
+]
+
 THEME_MAP = {
     1: "theme-prolog",
     2: "theme-story",
@@ -33,11 +39,10 @@ THEME_MAP = {
     15: "theme-epilog",
 }
 
-# Реальные орнаменты (изображения) для глав, где скачаны из интернета
 ORNAMENT_IMAGES = {
-    4: "spanish_moorish_tile.svg",
-    5: "italian_acanthus.png",
-    6: "english_tudor_rose.svg",
+    4: "spanish_flamenco.png",
+    5: "italian_venetian_mask.png",
+    6: "english_celtic_knot.png",
     7: "indian_mandala.svg",
     8: "turkish_tulip.svg",
     9: "chinese_dragon.svg",
@@ -45,24 +50,21 @@ ORNAMENT_IMAGES = {
     12: "african_gye_nyame.svg",
 }
 
-# Цвета туманности и души для каждой главы (астральная палитра + традиционные цвета)
 NEBULA_COLORS = {
-    1: "#B08D57", 2: "#8A8378", 3: "#1B5E20", 4: "#1565C0",
+    1: "#B08D57", 2: "#8A8378", 3: "#1B5E20", 4: "#C62828",
     5: "#BF360C", 6: "#C62828", 7: "#FF6F00", 8: "#00695C",
     9: "#C62828", 10: "#424242", 11: "#1976D2", 12: "#795548",
     13: "#424242", 14: "#757575", 15: "#B08D57",
 }
 SOUL_COLORS = {
-    1: "#FFD700", 2: "#C0C0C0", 3: "#90EE90", 4: "#87CEEB",
+    1: "#FFD700", 2: "#C0C0C0", 3: "#90EE90", 4: "#FF6B6B",
     5: "#FFA07A", 6: "#FF6B6B", 7: "#FFD700", 8: "#40E0D0",
     9: "#FF4500", 10: "#A9A9A9", 11: "#87CEFA", 12: "#DEB887",
     13: "#A9A9A9", 14: "#FFFFFF", 15: "#FFD700",
 }
 
-# Символы профессий (SVG-иконки)
 PROFESSION_ICONS = {
-    1: '<svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
-    2: '<svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>',
+    1: '', 2: '',
     3: '<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16z"/><path d="M12 6v6l4 2"/></svg>',
     4: '<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
     5: '<svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5zM2 2l7.5 1.5L13 8"/></svg>',
@@ -75,7 +77,7 @@ PROFESSION_ICONS = {
     12: '<svg viewBox="0 0 24 24"><path d="M15 4V2M15 16v-2M8 9h2M20 9h2M8 15l1.5-1.5M18.5 5.5L20 4M8 3l1.5 1.5M18.5 12.5L20 14"/></svg>',
     13: '<svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5zM6 12v5c3 3 9 3 12 0v-5"/></svg>',
     14: '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>',
-    15: '<svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+    15: '',
 }
 
 PROFESSION_NAMES = {
@@ -92,30 +94,23 @@ MAP_BADGES = {
     14: "Bəşəriyyət", 15: "",
 }
 
-# Плавающие буквы для каждой главы
 FLOATING_LETTERS = {
-    1: "I,V,X",
-    2: "H,E,K,A,Y,Ə",
-    3: "ا,ب,ج,د,ه,و,ز,ح,ط,ي,ك,ل,م,ن",
-    4: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,Ñ,O,P,Q,R,S,T,U,V,W,X,Y,Z",
-    5: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z",
-    6: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z",
-    7: "अ,आ,इ,ई,उ,ऊ,ए,ऐ,ओ,औ,क,ख,ग,घ,च,छ,ज,झ",
-    8: "𐱃,𐱁,𐱂,𐱄,𐱅,𐱆,𐱇,𐱈,𐱉,𐱊,𐱋,𐱌",
-    9: "甲,乙,丙,丁,戊,己,庚,辛,壬,癸,子,丑,寅,卯,辰,巳,午,未,申,酉,戌,亥",
-    10: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z",
-    11: "א,ב,ג,ד,ה,ו,ז,ח,ט,י,כ,ל,מ,נ,ס,ע,פ,צ,ק,ר,ש,ת",
-    12: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z",
-    13: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z",
-    14: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z",
-    15: "I,V,X",
+    1: "I,V,X,★,✦,✧",
+    2: "H,E,K,A,Y,Ə,★,✦",
+    3: "ا,ب,ج,د,ه,و,ز,ح,ط,ي,ك,ل,م,ن,س,ع,ف,ص,ق,ر,ش,ت,ث,خ,ذ,ض,ظ,غ",
+    4: "𐈀,𐈁,𐈂,𐈃,𐈄,𐈅,𐈆,𐈇,𐈈,𐈉,𐈊,𐈋,𐈌,𐈍,𐈎,𐈏",
+    5: "𐌀,𐌁,𐌂,𐌃,𐌄,𐌅,𐌆,𐌇,𐌈,𐌉,𐌊,𐌋,𐌌,𐌍,𐌎,𐌏,𐌐,𐌑,𐌒,𐌓,𐌔,𐌕,𐌖,𐌗,𐌘,𐌙",
+    6: "ᚁ,ᚂ,ᚃ,ᚄ,ᚅ,ᚆ,ᚇ,ᚈ,ᚉ,ᚊ,ᚋ,ᚌ,ᚍ,ᚎ,ᚏ,ᚐ,ᚑ,ᚒ,ᚓ,ᚔ",
+    7: "अ,आ,इ,ई,उ,ऊ,ए,ऐ,ओ,औ,क,ख,ग,घ,च,छ,ज,झ,ट,ठ,ड,ढ,ण,त,थ,द,ध,न,प,फ,ब,भ,म,य,र,ल,व,श,ष,स,ह",
+    8: "𐱃,𐱁,𐱂,𐱄,𐱅,𐱆,𐱇,𐱈,𐱉,𐱊,𐱋,𐱌,𐰀,𐰁,𐰂,𐰃,𐰄,𐰅,𐰆,𐰇,𐰈,𐰉,𐰊,𐰋,𐰌,𐰍,𐰎,𐰏,𐰐,𐰑,𐰒,𐰓,𐰔,𐰕,𐰖,𐰗,𐰘,𐰙,𐰚,𐰛,𐰜,𐰝,𐰞,𐰟,𐰠,𐰡,𐰢,𐰣,𐰤,𐰥,𐰦,𐰧,𐰨,𐰩,𐰪,𐰫,𐰬,𐰭,𐰮,𐰯,𐰰,𐰱,𐰲,𐰳,𐰴,𐰵,𐰶,𐰷,𐰸,𐰹,𐰺,𐰻,𐰼,𐰽,𐰾,𐰿",
+    9: "甲,乙,丙,丁,戊,己,庚,辛,壬,癸,子,丑,寅,卯,辰,巳,午,未,申,酉,戌,亥,龍,鳳,虎,龜,麟,玄,武,青,龍,白,虎,朱,雀",
+    10: "ᚠ,ᚢ,ᚦ,ᚨ,ᚱ,ᚲ,ᚷ,ᚹ,ᚺ,ᚾ,ᛁ,ᛃ,ᛇ,ᛈ,ᛉ,ᛊ,ᛏ,ᛒ,ᛖ,ᛗ,ᛚ,ᛜ,ᛞ,ᛟ",
+    11: "א,ב,ג,ד,ה,ו,ז,ח,ט,י,כ,ל,מ,נ,ס,ע,פ,צ,ק,ר,ש,ת,ש,ׁ,שׂ,וּ,וֹ",
+    12: "ሀ,ሁ,ሂ,ሃ,ሄ,ህ,ሆ,ለ,ሉ,ሊ,ላ,ሌ,ል,ሎ,ሐ,ሑ,ሒ,ሓ,ሔ,ሕ,ሖ,መ,ሙ,ሚ,ማ,ሜ,ም,ሞ,ሠ,ሡ,ሢ,ሣ,ሤ,ሥ,ሦ,ረ,ሩ,ሪ,ራ,ሬ,ር,ሮ,ሰ,ሱ,ሲ,ሳ,ሴ,ስ,ሶ,ሸ,ሹ,ሺ,ሻ,ሼ,ሽ,ሾ,ቀ,ቁ,ቂ,ቃ,ቄ,ቅ,ቆ,በ,ቡ,ቢ,ባ,ቤ,ብ,ቦ",
+    13: "ᚠ,ᚢ,ᚦ,ᚨ,ᚱ,ᚲ,ᚷ,ᚹ,ᚺ,ᚾ,ᛁ,ᛃ,ᛇ,ᛈ,ᛉ,ᛊ,ᛏ,ᛒ,ᛖ,ᛗ,ᛚ,ᛜ,ᛞ,ᛟ",
+    14: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,★,✦,✧,∞,◊,○,●,◐,◑",
+    15: "I,V,X,★,✦,✧,∞",
 }
-
-ROMAN_MAP = [
-    (1000, "M"), (900, "CM"), (500, "D"), (400, "CD"),
-    (100, "C"), (90, "XC"), (50, "L"), (40, "XL"),
-    (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I"),
-]
 
 def to_roman(n: int) -> str:
     result = ""
@@ -151,15 +146,8 @@ def main():
                         f'alt="{title}"></div>' if has_portrait else "")
         theme = THEME_MAP.get(num, "theme-default")
 
-        # Орнамент: реальное изображение или CSS-паттерн
-        if num in ORNAMENT_IMAGES:
-            ornament_file = ORNAMENT_IMAGES[num]
-            ornament_style = (f"background-image: url('../../assets/ornaments/{ornament_file}'); "
-                              f"background-size: 200px 200px; background-repeat: repeat; opacity: 0.08;")
-        else:
-            ornament_style = ""
+        ornament_style = ""
 
-        # Профессия
         profession_icon = PROFESSION_ICONS.get(num, "")
         profession_name = PROFESSION_NAMES.get(num, "")
         if profession_name:
@@ -167,12 +155,10 @@ def main():
         else:
             profession_html = ""
 
-        # Карта/место
         map_badge = MAP_BADGES.get(num, "")
-
-        # Цвета туманности и души
         nebula_color = NEBULA_COLORS.get(num, "#B08D57")
         soul_color = SOUL_COLORS.get(num, "#FFD700")
+        floating_letters = FLOATING_LETTERS.get(num, "A,B,C")
 
         page = (template
                 .replace("{{NUM}}", str(num))
@@ -189,7 +175,7 @@ def main():
                 .replace("{{MAP_BADGE}}", map_badge)
                 .replace("{{NEBULA_COLOR}}", nebula_color)
                 .replace("{{SOUL_COLOR}}", soul_color)
-                .replace("{{FLOATING_LETTERS}}", FLOATING_LETTERS.get(num, "A,B,C")))
+                .replace("{{FLOATING_LETTERS}}", floating_letters))
 
         page_dir = ch_dir / str(num)
         page_dir.mkdir(parents=True, exist_ok=True)
