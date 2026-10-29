@@ -7,7 +7,7 @@
 <title>Gün 5 - Musiqiçi - -Hindistanlı — Simasız Büt — bə 7</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Work+Sans:wght@300;400;500&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0E0D0C;
@@ -16,6 +16,8 @@
     --gold:#B08D57;
     --wine:#7A2E2E;
     --accent:#B08D57;
+    --astral:#7B68EE;
+    --soul:#FFD700;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{height:100%;}
@@ -28,9 +30,17 @@
     justify-content:center;
     overflow:hidden;
     -webkit-tap-highlight-color:transparent;
+    cursor:none;
   }
 
-  /* ===== БАЗОВЫЙ ДИЗАЙН (утверждён) ===== */
+  /* ===== 3D CANVAS ===== */
+  #cosmos{
+    position:fixed;
+    inset:0;
+    z-index:0;
+  }
+
+  /* ===== БАЗОВЫЙ ДИЗАЙН ===== */
   .numeral{
     position:absolute;
     inset:0;
@@ -41,21 +51,22 @@
     font-size:min(60vw,60vh);
     font-weight:600;
     color:var(--paper);
-    opacity:0.045;
+    opacity:0.03;
     user-select:none;
     pointer-events:none;
     letter-spacing:0.02em;
-    z-index:0;
+    z-index:1;
   }
   .stage{
     position:relative;
-    z-index:1;
+    z-index:2;
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:2.4rem;
+    gap:1.8rem;
     padding:2rem;
     text-align:center;
+    transform-style:preserve-3d;
   }
   .eyebrow{
     font-size:0.72rem;
@@ -63,6 +74,8 @@
     text-transform:uppercase;
     color:var(--paper-dim);
     font-weight:400;
+    opacity:0;
+    animation:fadeIn 1.2s ease 0.3s forwards;
   }
   h1{
     font-family:'Cormorant Garamond',serif;
@@ -72,6 +85,8 @@
     line-height:1.25;
     color:var(--paper);
     max-width:16ch;
+    opacity:0;
+    animation:fadeIn 1.2s ease 0.6s forwards;
   }
   .portrait{
     position:absolute;
@@ -86,6 +101,13 @@
     background:var(--bg);
     display:none;
     z-index:0;
+    opacity:0.7;
+    filter:grayscale(0.3) contrast(1.1);
+    transition:opacity .5s ease, filter .5s ease;
+  }
+  .portrait:hover{
+    opacity:1;
+    filter:grayscale(0) contrast(1);
   }
   .portrait img{
     width:100%;
@@ -106,6 +128,30 @@
       z-index:1;
     }
   }
+
+  /* ===== ПРОФЕССИЯ (символ) ===== */
+  .profession{
+    display:flex;
+    align-items:center;
+    gap:0.8rem;
+    opacity:0;
+    animation:fadeIn 1.2s ease 0.9s forwards;
+  }
+  .profession:empty{ display:none; }
+  .profession svg{
+    width:28px;
+    height:28px;
+    fill:var(--accent);
+    opacity:0.8;
+  }
+  .profession span{
+    font-size:0.78rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--paper-dim);
+  }
+
+  /* ===== ПЕЧАТЬ (seal/player) ===== */
   .seal{
     --p:0;
     position:relative;
@@ -120,6 +166,8 @@
     justify-content:center;
     cursor:pointer;
     transition:transform .25s ease;
+    opacity:0;
+    animation:fadeIn 1.2s ease 1.2s forwards;
   }
   .seal:active{ transform:scale(0.96); }
   .seal::before{
@@ -141,6 +189,8 @@
     font-size:0.78rem;
     color:var(--paper-dim);
     letter-spacing:0.04em;
+    opacity:0;
+    animation:fadeIn 1.2s ease 1.5s forwards;
   }
   .overlay{
     position:fixed;
@@ -153,6 +203,7 @@
     justify-content:center;
     gap:1.2rem;
     cursor:pointer;
+    transition:opacity .6s ease;
   }
   .overlay .eyebrow{ animation:pulse 2s ease-in-out infinite; }
   @keyframes pulse{ 0%,100%{opacity:0.5;} 50%{opacity:1;} }
@@ -161,76 +212,123 @@
     .seal.playing{ animation:none; }
     .overlay .eyebrow{ animation:none; }
   }
+  @keyframes fadeIn{
+    from{ opacity:0; transform:translateY(12px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
 
-  /* ===== ОРНАМЕНТЫ ПО НАЦИОНАЛЬНОСТЯМ ===== */
+  /* ===== ОРНАМЕНТЫ ===== */
   .ornament{
     position:fixed;
     inset:0;
     z-index:0;
     pointer-events:none;
-    opacity:0.12;
+    opacity:0.08;
     background-repeat:repeat;
     background-position:center;
+    mix-blend-mode:screen;
   }
 
-  /* 1. PROLOQ — золотые лучи */
+  /* ===== АСТРАЛЬНАЯ НИТЬ (соединяет главы) ===== */
+  .astral-thread{
+    position:fixed;
+    top:0;
+    left:50%;
+    width:1px;
+    height:100%;
+    background:linear-gradient(to bottom, transparent, var(--astral), var(--soul), var(--astral), transparent);
+    opacity:0.15;
+    z-index:0;
+    pointer-events:none;
+    animation:threadPulse 4s ease-in-out infinite;
+  }
+  @keyframes threadPulse{
+    0%,100%{ opacity:0.1; }
+    50%{ opacity:0.25; }
+  }
+
+  /* ===== ЧАСТИЦЫ (звёзды) ===== */
+  .particles{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  .particle{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:var(--paper);
+    border-radius:50%;
+    opacity:0;
+    animation:starFloat 6s ease-in-out infinite;
+  }
+  @keyframes starFloat{
+    0%{ opacity:0; transform:translateY(0) scale(0.5); }
+    50%{ opacity:0.6; transform:translateY(-30px) scale(1); }
+    100%{ opacity:0; transform:translateY(-60px) scale(0.5); }
+  }
+
+  /* ===== ТЕМЫ (цвета + CSS-орнаменты) ===== */
+  /* 1. PROLOQ */
+  body.theme-prolog{ --accent:#B08D57; }
   body.theme-prolog .ornament{
     background: repeating-conic-gradient(var(--accent) 0deg 1deg, transparent 1deg 12deg);
+    opacity:0.04;
   }
-  body.theme-prolog{ --accent:#B08D57; }
 
-  /* 2. HEKAYƏ — волны */
+  /* 2. HEKAYƏ */
+  body.theme-story{ --accent:#8A8378; }
   body.theme-story .ornament{
     background: repeating-linear-gradient(0deg, transparent 0 18px, var(--accent) 18px 19px, transparent 19px 36px);
+    opacity:0.04;
   }
-  body.theme-story{ --accent:#8A8378; }
 
-  /* 3. Ərəb — исламский фрактал (рекурсивная геометрия) */
+  /* 3. Ərəb — исламский фрактал */
+  body.theme-arab{ --accent:#1B5E20; }
   body.theme-arab .ornament{
-    background-image:
-      repeating-conic-gradient(var(--accent) 0deg 15deg, transparent 15deg 30deg),
-      radial-gradient(circle at 50% 50%, var(--accent) 1px, transparent 1px);
-    background-size: 120px 120px, 60px 60px;
+    background: repeating-conic-gradient(var(--accent) 0deg 15deg, transparent 15deg 30deg);
     opacity:0.05;
   }
-  body.theme-arab{ --accent:#1B5E20; }
 
-  /* 4. İspan — испанская керамика (реальный SVG) — цвет */
+  /* 4. İspan — реальный SVG */
   body.theme-spanish{ --accent:#1565C0; }
 
-  /* 5. İtalyan — акант (реальный PNG) — цвет */
+  /* 5. İtalyan — реальный PNG */
   body.theme-italian{ --accent:#BF360C; }
 
-  /* 6. İngilis — роза Тюдоров (реальный SVG) — цвет */
+  /* 6. İngilis — реальный SVG */
   body.theme-english{ --accent:#C62828; }
 
-  /* 7. Hindistanlı — мандала (реальный SVG) — цвет */
+  /* 7. Hindistanlı — реальный SVG */
   body.theme-indian{ --accent:#FF6F00; }
 
-  /* 8. Türk — тюльпан (реальный SVG) — цвет */
+  /* 8. Türk — реальный SVG */
   body.theme-turkish{ --accent:#00695C; }
 
-  /* 9. Çinli — дракон (реальный SVG) — цвет */
+  /* 9. Çinli — реальный SVG */
   body.theme-chinese{ --accent:#C62828; }
 
-  /* 10 & 13. Alman — готический трилистник (CSS) */
+  /* 10 & 13. Alman — готический трилистник */
+  body.theme-german{ --accent:#424242; }
   body.theme-german .ornament{
     background-image:
       radial-gradient(circle at 50% 30%, var(--accent) 3px, transparent 3px),
       radial-gradient(circle at 30% 70%, var(--accent) 3px, transparent 3px),
-      radial-gradient(circle at 70% 70%, var(--accent) 3px, transparent 3px),
-      radial-gradient(circle at 50% 50%, var(--accent) 1px, transparent 1px);
+      radial-gradient(circle at 70% 70%, var(--accent) 3px, transparent 3px);
     background-size: 40px 40px;
+    opacity:0.06;
   }
-  body.theme-german{ --accent:#424242; }
 
-  /* 11. Yahudo — менора (реальный SVG) — цвет */
+  /* 11. Yahudo — реальный SVG */
   body.theme-jewish{ --accent:#1976D2; }
 
-  /* 12. Afrikalı — Gye Nyame (реальный SVG) — цвет */
+  /* 12. Afrikalı — реальный SVG */
   body.theme-african{ --accent:#795548; }
 
-  /* 14. Bəşəriyyət — спираль (эволюция) */
+  /* 14. Bəşəriyyət — спираль */
+  body.theme-human{ --accent:#757575; }
   body.theme-human .ornament{
     background-image:
       radial-gradient(circle at 50% 50%, transparent 0 10px, var(--accent) 10px 11px, transparent 11px),
@@ -239,23 +337,68 @@
     background-size: 100px 100px;
     opacity:0.04;
   }
-  body.theme-human{ --accent:#757575; }
 
-  /* 15. Epiloq — звёздное небо */
+  /* 15. Epiloq */
+  body.theme-epilog{ --accent:#B08D57; }
   body.theme-epilog .ornament{
     background-image:
       radial-gradient(circle at 20% 30%, var(--accent) 1px, transparent 1px),
       radial-gradient(circle at 60% 20%, var(--accent) 1px, transparent 1px),
       radial-gradient(circle at 80% 60%, var(--accent) 1px, transparent 1px),
-      radial-gradient(circle at 40% 80%, var(--accent) 1px, transparent 1px),
-      radial-gradient(circle at 10% 70%, var(--accent) 1px, transparent 1px);
+      radial-gradient(circle at 40% 80%, var(--accent) 1px, transparent 1px);
     background-size: 100px 100px;
     opacity:0.05;
   }
-  body.theme-epilog{ --accent:#B08D57; }
+
+  /* ===== ПАРАЛЛАКС КУРСОРА ===== */
+  .parallax-layer{
+    position:fixed;
+    inset:-5%;
+    z-index:0;
+    pointer-events:none;
+    transition:transform .1s ease-out;
+  }
+
+  /* ===== КАРТА (стилизованная) ===== */
+  .map-badge{
+    position:absolute;
+    bottom:1.5rem;
+    right:1.5rem;
+    z-index:3;
+    font-size:0.65rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--paper-dim);
+    border:1px solid rgba(232,225,208,0.12);
+    padding:0.4rem 0.8rem;
+    border-radius:4px;
+    background:rgba(14,13,12,0.6);
+    backdrop-filter:blur(4px);
+    opacity:0;
+    animation:fadeIn 1.2s ease 1.8s forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .seal.playing{ animation:none; }
+    .overlay .eyebrow{ animation:none; }
+    .particle{ animation:none; }
+    .astral-thread{ animation:none; }
+  }
 </style>
 </head>
 <body class="theme-indian">
+
+  <!-- 3D КОСМОС -->
+  <canvas id="cosmos"></canvas>
+
+  <!-- АСТРАЛЬНАЯ НИТЬ -->
+  <div class="astral-thread"></div>
+
+  <!-- ЧАСТИЦЫ (ЗВЁЗДЫ) -->
+  <div class="particles" id="particles"></div>
+
+  <!-- ПАРАЛЛАКС СЛОИ -->
+  <div class="parallax-layer" id="parallaxBg"></div>
 
   <div class="numeral">VII</div>
   <div class="ornament" style="background-image: url('../../assets/ornaments/indian_mandala.svg'); background-size: 200px 200px; background-repeat: repeat; opacity: 0.08;"></div>
@@ -264,6 +407,9 @@
     <div class="eyebrow">Bəb 7</div>
     <div class="portrait"><img src="../../assets/pictures/person_7.jpg" alt="Gün 5 - Musiqiçi - -Hindistanlı"></div>
     <h1>Gün 5 - Musiqiçi - -Hindistanlı</h1>
+    <div class="profession">
+      <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13M9 9l12-2"/></svg><span>Musiqiçi</span>
+    </div>
     <button class="seal" id="playBtn" aria-label="Oynat">
       <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
       <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
@@ -278,7 +424,120 @@
 
   <audio id="audio" src="../../audio/track7.mp3" preload="auto"></audio>
 
+  <div class="map-badge">Hindistan</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
+  /* ===== 3D КОСМОС (Three.js) ===== */
+  (function(){
+    var canvas = document.getElementById('cosmos');
+    var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
+
+    // Звёзды
+    var starCount = 2000;
+    var starGeo = new THREE.BufferGeometry();
+    var starPos = new Float32Array(starCount * 3);
+    var starSizes = new Float32Array(starCount);
+    for(var i = 0; i < starCount; i++){
+      starPos[i*3] = (Math.random() - 0.5) * 20;
+      starPos[i*3+1] = (Math.random() - 0.5) * 20;
+      starPos[i*3+2] = (Math.random() - 0.5) * 20;
+      starSizes[i] = Math.random() * 2 + 0.5;
+    }
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    starGeo.setAttribute('size', new THREE.BufferAttribute(starSizes, 1));
+
+    var starMat = new THREE.PointsMaterial({
+      color: 0xE8E1D0,
+      size: 0.03,
+      transparent: true,
+      opacity: 0.8,
+      sizeAttenuation: true
+    });
+    var stars = new THREE.Points(starGeo, starMat);
+    scene.add(stars);
+
+    // Туманность (цветной)
+    var nebulaGeo = new THREE.SphereGeometry(8, 32, 32);
+    var nebulaMat = new THREE.MeshBasicMaterial({
+      color: new THREE.Color('#FF6F00'),
+      transparent: true,
+      opacity: 0.03,
+      side: THREE.BackSide
+    });
+    var nebula = new THREE.Mesh(nebulaGeo, nebulaMat);
+    scene.add(nebula);
+
+    // Астральная сфера (душа)
+    var soulGeo = new THREE.SphereGeometry(0.3, 32, 32);
+    var soulMat = new THREE.MeshBasicMaterial({
+      color: new THREE.Color('#FFD700'),
+      transparent: true,
+      opacity: 0.15
+    });
+    var soul = new THREE.Mesh(soulGeo, soulMat);
+    scene.add(soul);
+
+    // Анимация
+    var mouseX = 0, mouseY = 0;
+    document.addEventListener('mousemove', function(e){
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    function animate(){
+      requestAnimationFrame(animate);
+      stars.rotation.y += 0.0003;
+      stars.rotation.x += 0.0001;
+      soul.rotation.y += 0.005;
+      soul.rotation.x += 0.003;
+      // Параллакс камеры
+      camera.position.x += (mouseX * 0.3 - camera.position.x) * 0.02;
+      camera.position.y += (-mouseY * 0.3 - camera.position.y) * 0.02;
+      camera.lookAt(scene.position);
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', function(){
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  })();
+
+  /* ===== ЧАСТИЦЫ (ЗВЁЗДЫ) ===== */
+  (function(){
+    var container = document.getElementById('particles');
+    var count = 30;
+    for(var i = 0; i < count; i++){
+      var p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.top = Math.random() * 100 + '%';
+      p.style.animationDelay = Math.random() * 6 + 's';
+      p.style.animationDuration = (4 + Math.random() * 4) + 's';
+      container.appendChild(p);
+    }
+  })();
+
+  /* ===== ПАРАЛЛАКС ФОНА ===== */
+  (function(){
+    var bg = document.getElementById('parallaxBg');
+    document.addEventListener('mousemove', function(e){
+      var x = (e.clientX / window.innerWidth - 0.5) * 20;
+      var y = (e.clientY / window.innerHeight - 0.5) * 20;
+      bg.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+    });
+  })();
+
+  /* ===== АУДИО ПЛЕЕР ===== */
   const audio = document.getElementById('audio');
   const seal = document.getElementById('playBtn');
   const overlay = document.getElementById('startOverlay');
