@@ -1,0 +1,3 @@
+# Git LFS for large audio files
+docs/audio/*.wav filter=lfs diff=lfs merge=lfs -lfs
+audio/*.wav filter=lfs diff=lfs merge=lfs -lfs

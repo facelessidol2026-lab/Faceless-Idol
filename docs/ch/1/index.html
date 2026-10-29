@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E0D0C">
+<title>Prolog — bə 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E0D0C;
+    --paper:#E8E1D0;
+    --paper-dim:#8A8378;
+    --gold:#B08D57;
+    --wine:#7A2E2E;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    background:var(--bg);
+    color:var(--paper);
+    font-family:'Work Sans',sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .numeral{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Cormorant Garamond',serif;
+    font-size:min(60vw,60vh);
+    font-weight:600;
+    color:var(--paper);
+    opacity:0.045;
+    user-select:none;
+    pointer-events:none;
+    letter-spacing:0.02em;
+  }
+  .stage{
+    position:relative;
+    z-index:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2.4rem;
+    padding:2rem;
+    text-align:center;
+  }
+  .eyebrow{
+    font-size:0.72rem;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--paper-dim);
+    font-weight:400;
+  }
+  h1{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;
+    font-style:italic;
+    font-size:clamp(1.6rem,5vw,2.6rem);
+    line-height:1.25;
+    color:var(--paper);
+    max-width:16ch;
+  }
+  .portrait{
+    position:relative;
+    width:min(38vw,168px);
+    height:min(38vw,168px);
+    border-radius:50%;
+    overflow:hidden;
+    border:1px solid rgba(232,225,208,0.15);
+    background:var(--bg);
+    display:none;
+  }
+  .portrait img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .has-portrait .portrait{ display:block; }
+  .seal{
+    --p:0;
+    position:relative;
+    width:min(38vw,168px);
+    height:min(38vw,168px);
+    border-radius:50%;
+    background:
+      radial-gradient(circle at 50% 50%, var(--bg) 62%, transparent 63%),
+      conic-gradient(var(--gold) calc(var(--p)*1%), rgba(176,141,87,0.18) 0);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:transform .25s ease;
+  }
+  .seal:active{ transform:scale(0.96); }
+  .seal::before{
+    content:"";
+    position:absolute;
+    inset:8px;
+    border-radius:50%;
+    border:1px solid rgba(232,225,208,0.15);
+  }
+  .seal svg{ width:30%; height:30%; fill:var(--paper); }
+  .seal.playing svg.icon-play{ display:none; }
+  .seal:not(.playing) svg.icon-pause{ display:none; }
+  .seal.playing{ animation: breathe 3.2s ease-in-out infinite; }
+  @keyframes breathe{
+    0%,100%{ box-shadow:0 0 0 0 rgba(176,141,87,0); }
+    50%{ box-shadow:0 0 24px 2px rgba(176,141,87,0.16); }
+  }
+  .meta{
+    font-size:0.78rem;
+    color:var(--paper-dim);
+    letter-spacing:0.04em;
+  }
+  .overlay{
+    position:fixed;
+    inset:0;
+    z-index:5;
+    background:var(--bg);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:1.2rem;
+    cursor:pointer;
+  }
+  .overlay .eyebrow{ animation:pulse 2s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:0.5;} 50%{opacity:1;} }
+  .hidden{ display:none !important; }
+  @media (prefers-reduced-motion: reduce){
+    .seal.playing{ animation:none; }
+    .overlay .eyebrow{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="numeral">I</div>
+
+  <div class="stage">
+    <div class="eyebrow">Bəb 1</div>
+    
+    <h1>Prolog</h1>
+    <button class="seal" id="playBtn" aria-label="Oynat">
+      <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    </button>
+    <div class="meta" id="timeLabel">00:00 / 00:00</div>
+  </div>
+
+  <div class="overlay" id="startOverlay">
+    <div class="numeral">I</div>
+    <div class="eyebrow" style="position:relative;z-index:1;">Başlamaq üçün klikləyin</div>
+  </div>
+
+  <audio id="audio" src="../../audio/track1.wav" preload="auto"></audio>
+
+<script>
+  const audio = document.getElementById('audio');
+  const seal = document.getElementById('playBtn');
+  const overlay = document.getElementById('startOverlay');
+  const timeLabel = document.getElementById('timeLabel');
+
+  function fmt(s){
+    if(!isFinite(s)) return '00:00';
+    const m = Math.floor(s/60), sec = Math.floor(s%60);
+    return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
+  }
+
+  function updateProgress(){
+    const p = audio.duration ? (audio.currentTime/audio.duration)*100 : 0;
+    seal.style.setProperty('--p', p.toFixed(2));
+    timeLabel.textContent = fmt(audio.currentTime)+' / '+fmt(audio.duration);
+  }
+
+  function play(){
+    audio.play().then(()=>{
+      seal.classList.add('playing');
+      overlay.classList.add('hidden');
+    }).catch(()=>{
+      overlay.classList.remove('hidden');
+    });
+  }
+
+  function toggle(){
+    if(audio.paused){ play(); }
+    else{ audio.pause(); seal.classList.remove('playing'); }
+  }
+
+  seal.addEventListener('click', toggle);
+  overlay.addEventListener('click', ()=>{ overlay.classList.add('hidden'); play(); });
+  audio.addEventListener('timeupdate', updateProgress);
+  audio.addEventListener('ended', ()=>{ seal.classList.remove('playing'); });
+
+  window.addEventListener('load', play);
+</script>
+</body>
+</html>

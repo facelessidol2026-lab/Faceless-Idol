@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E0D0C">
+<title>Faceless-Idol — kitabın səhnələri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E0D0C;
+    --paper:#E8E1D0;
+    --paper-dim:#8A8378;
+    --gold:#B08D57;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    background:var(--bg);
+    color:var(--paper);
+    font-family:'Work Sans',sans-serif;
+    -webkit-tap-highlight-color:transparent;
+    line-height:1.6;
+  }
+  .container{
+    max-width:720px;
+    margin:0 auto;
+    padding:2rem 1rem;
+  }
+  .eyebrow{
+    font-size:0.72rem;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--paper-dim);
+    font-weight:400;
+    margin-bottom:1rem;
+  }
+  h1{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;
+    font-style:italic;
+    font-size:clamp(1.8rem,6vw,2.6rem);
+    line-height:1.25;
+    color:var(--paper);
+    margin-bottom:2.5rem;
+    max-width:42ch;
+  }
+  .toc{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+  }
+  .toc-item{
+    display:flex;
+    align-items:center;
+    gap:1.2rem;
+    padding:1.2rem 1rem;
+    border:1px solid rgba(232,225,208,0.12);
+    border-radius:12px;
+    text-decoration:none;
+    color:var(--paper);
+    transition:transform .15s ease, border-color .15s ease;
+    background:rgba(232,225,208,0.02);
+  }
+  .toc-item:hover{
+    transform:translateY(-2px);
+    border-color:var(--gold);
+  }
+  .toc-num{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:600;
+    font-size:clamp(1.2rem,3vw,1.8rem);
+    color:var(--gold);
+    min-width:2.2rem;
+  }
+  .toc-title{
+    font-weight:500;
+  }
+  .qr-cell{
+    margin-left:auto;
+    width:64px;
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(232,225,208,0.12);
+    border-radius:8px;
+    background:var(--bg);
+  }
+  .qr-cell img{
+    width:52px;
+    height:52px;
+    display:block;
+  }
+  .hint{
+    margin-top:2.5rem;
+    font-size:0.78rem;
+    color:var(--paper-dim);
+    letter-spacing:0.04em;
+    border-top:1px solid rgba(232,225,208,0.12);
+    padding-top:1rem;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .toc-item{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="eyebrow">Faceless-Idol — səhnələr</div>
+    <h1>Kitabın 15 səhnəsi (track)</h1>
+
+    <div class="toc">
+      <a class="toc-item" href="/ch/1/">
+        <span class="toc-num">I</span>
+        <span class="toc-title">Prolog</span>
+        <span class="qr-cell"><img src="/qr/ch1.svg" alt="QR 1"></span>
+      </a>
+      <a class="toc-item" href="/ch/2/">
+        <span class="toc-num">II</span>
+        <span class="toc-title">HEKAYƏ</span>
+        <span class="qr-cell"><img src="/qr/ch2.svg" alt="QR 2"></span>
+      </a>
+      <a class="toc-item" href="/ch/3/">
+        <span class="toc-num">III</span>
+        <span class="toc-title">Arap</span>
+        <span class="qr-cell"><img src="/qr/ch3.svg" alt="QR 3"></span>
+      </a>
+      <a class="toc-item" href="/ch/4/">
+        <span class="toc-num">IV</span>
+        <span class="toc-title">İspan</span>
+        <span class="qr-cell"><img src="/qr/ch4.svg" alt="QR 4"></span>
+      </a>
+      <a class="toc-item" href="/ch/5/">
+        <span class="toc-num">V</span>
+        <span class="toc-title">Italiyan</span>
+        <span class="qr-cell"><img src="/qr/ch5.svg" alt="QR 5"></span>
+      </a>
+      <a class="toc-item" href="/ch/6/">
+        <span class="toc-num">VI</span>
+        <span class="toc-title">İngiliz</span>
+        <span class="qr-cell"><img src="/qr/ch6.svg" alt="QR 6"></span>
+      </a>
+      <a class="toc-item" href="/ch/7/">
+        <span class="toc-num">VII</span>
+        <span class="toc-title">Hind</span>
+        <span class="qr-cell"><img src="/qr/ch7.svg" alt="QR 7"></span>
+      </a>
+      <a class="toc-item" href="/ch/8/">
+        <span class="toc-num">VIII</span>
+        <span class="toc-title">Türki</span>
+        <span class="qr-cell"><img src="/qr/ch8.svg" alt="QR 8"></span>
+      </a>
+      <a class="toc-item" href="/ch/9/">
+        <span class="toc-num">IX</span>
+        <span class="toc-title">Xitoy</span>
+        <span class="qr-cell"><img src="/qr/ch9.svg" alt="QR 9"></span>
+      </a>
+      <a class="toc-item" href="/ch/10/">
+        <span class="toc-num">X</span>
+        <span class="toc-title">Yaponiya</span>
+        <span class="qr-cell"><img src="/qr/ch10.svg" alt="QR 10"></span>
+      </a>
+      <a class="toc-item" href="/ch/11/">
+        <span class="toc-num">XI</span>
+        <span class="toc-title">Yəhudi</span>
+        <span class="qr-cell"><img src="/qr/ch11.svg" alt="QR 11"></span>
+      </a>
+      <a class="toc-item" href="/ch/12/">
+        <span class="toc-num">XII</span>
+        <span class="toc-title">Afrika</span>
+        <span class="qr-cell"><img src="/qr/ch12.svg" alt="QR 12"></span>
+      </a>
+      <a class="toc-item" href="/ch/13/">
+        <span class="toc-num">XIII</span>
+        <span class="toc-title">Alman</span>
+        <span class="qr-cell"><img src="/qr/ch13.svg" alt="QR 13"></span>
+      </a>
+      <a class="toc-item" href="/ch/14/">
+        <span class="toc-num">XIV</span>
+        <span class="toc-title">İnsan</span>
+        <span class="qr-cell"><img src="/qr/ch14.svg" alt="QR 14"></span>
+      </a>
+      <a class="toc-item" href="/ch/15/">
+        <span class="toc-num">XV</span>
+        <span class="toc-title">Epilog</span>
+        <span class="qr-cell"><img src="/qr/ch15.svg" alt="QR 15"></span>
+      </a>
+    </div>
+
+    <div class="hint">
+      Hər səhifədə audio trək alınabla çalışır. QR-kodu qəbul edən kamerayla oxuyun və səhifəyə gettingin.
+    </div>
+  </div>
+
+</body>
+</html>
