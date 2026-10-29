@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 ### ƏƏDƏLƏDİRLƏNМЕ addımları
 
-1. `chapters.json`-i yoxlayın — 15 səhnə: nömrə, başlıq və audio fayl (`track1.wav` … `track15.wav`).
+1. `chapters.json`-i yoxlayın — 15 səhnə: nömrə, başlıq və audio fayl (`track1.mp3` … `track15.mp3`).
 2. MP3/WAV fayllarını `docs/audio/` directoriesna yükləyin.
 3. Generatoru işə salın:
 
@@ -53,7 +53,7 @@ pip install -r requirements.txt
 
 ### Шаги
 
-1. Проверьте `chapters.json` — 15 глав: номер, название, аудиофайл (`track1.wav` … `track15.wav`).
+1. Проверьте `chapters.json` — 15 глав: номер, название, аудиофайл (`track1.mp3` … `track15.mp3`).
 2. Положите аудио в `docs/audio/`.
 3. Запустите генератор:
 
@@ -90,7 +90,7 @@ pip install -r requirements.txt
 
 ### Steps
 
-1. Check `chapters.json` — 15 chapters: number, title, audio file (`track1.wav` … `track15.wav`).
+1. Check `chapters.json` — 15 chapters: number, title, audio file (`track1.mp3` … `track15.mp3`).
 2. Put audio into `docs/audio/`.
 3. Run the generator:
 
