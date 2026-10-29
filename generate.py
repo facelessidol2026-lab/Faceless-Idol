@@ -92,6 +92,25 @@ MAP_BADGES = {
     14: "Bəşəriyyət", 15: "",
 }
 
+# Плавающие буквы для каждой главы
+FLOATING_LETTERS = {
+    1: "I,V,X",
+    2: "H,E,K,A,Y,Ə",
+    3: "ا,ب,ج,د,ه,و,ز,ح,ط,ي,ك,ل,م,ن",
+    4: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,Ñ,O,P,Q,R,S,T,U,V,W,X,Y,Z",
+    5: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z",
+    6: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z",
+    7: "अ,आ,इ,ई,उ,ऊ,ए,ऐ,ओ,औ,क,ख,ग,घ,च,छ,ज,झ",
+    8: "𐱃,𐱁,𐱂,𐱄,𐱅,𐱆,𐱇,𐱈,𐱉,𐱊,𐱋,𐱌",
+    9: "甲,乙,丙,丁,戊,己,庚,辛,壬,癸,子,丑,寅,卯,辰,巳,午,未,申,酉,戌,亥",
+    10: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z",
+    11: "א,ב,ג,ד,ה,ו,ז,ח,ט,י,כ,ל,מ,נ,ס,ע,פ,צ,ק,ר,ש,ת",
+    12: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z",
+    13: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z",
+    14: "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z",
+    15: "I,V,X",
+}
+
 ROMAN_MAP = [
     (1000, "M"), (900, "CM"), (500, "D"), (400, "CD"),
     (100, "C"), (90, "XC"), (50, "L"), (40, "XL"),
@@ -169,7 +188,8 @@ def main():
                 .replace("{{PROFESSION_HTML}}", profession_html)
                 .replace("{{MAP_BADGE}}", map_badge)
                 .replace("{{NEBULA_COLOR}}", nebula_color)
-                .replace("{{SOUL_COLOR}}", soul_color))
+                .replace("{{SOUL_COLOR}}", soul_color)
+                .replace("{{FLOATING_LETTERS}}", FLOATING_LETTERS.get(num, "A,B,C")))
 
         page_dir = ch_dir / str(num)
         page_dir.mkdir(parents=True, exist_ok=True)
@@ -179,7 +199,7 @@ def main():
         img = qrcode.make(chapter_url, box_size=12, border=3)
         img.save(qr_dir / f"ch{num}.png")
 
-        print(f"Bəb {num:>2} | {title:<30} | {chapter_url}")
+        print(f"Fəsil {num:>2} | {title:<30} | {chapter_url}")
 
     print(f"\nHazırdır: {len(chapters)} səhifə docs/ch/-də, {len(chapters)} QR-kod docs/qr/-də")
 
