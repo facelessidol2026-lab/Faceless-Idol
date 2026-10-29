@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0E0D0C">
-<title>Epilog — bə 15</title>
+<title>Epiloq — bə 15</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -71,18 +71,19 @@
   }
   .portrait{
     position:relative;
-    width:min(38vw,168px);
-    height:min(38vw,168px);
-    border-radius:50%;
+    width:min(60vw,280px);
+    height:min(45vh,320px);
+    border-radius:12px;
     overflow:hidden;
     border:1px solid rgba(232,225,208,0.15);
     background:var(--bg);
     display:none;
+    margin:0 auto;
   }
   .portrait img{
     width:100%;
     height:100%;
-    object-fit:cover;
+    object-fit:contain;
     display:block;
   }
   .has-portrait .portrait{ display:block; }
@@ -150,7 +151,7 @@
   <div class="stage">
     <div class="eyebrow">Bəb 15</div>
     
-    <h1>Epilog</h1>
+    <h1>Epiloq</h1>
     <button class="seal" id="playBtn" aria-label="Oynat">
       <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
       <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
