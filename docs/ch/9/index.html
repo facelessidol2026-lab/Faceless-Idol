@@ -168,7 +168,9 @@
     inset:0;
     z-index:0;
     pointer-events:none;
-    opacity:0.07;
+    opacity:0.12;
+    background-repeat:repeat;
+    background-position:center;
   }
 
   /* 1. PROLOQ — золотые лучи */
@@ -183,87 +185,35 @@
   }
   body.theme-story{ --accent:#8A8378; }
 
-  /* 3. Ərəb — шиитские элементы: геометрический узор с куфической вязью */
+  /* 3. Ərəb — исламский фрактал (рекурсивная геометрия) */
   body.theme-arab .ornament{
     background-image:
-      linear-gradient(45deg, var(--accent) 1px, transparent 1px),
-      linear-gradient(-45deg, var(--accent) 1px, transparent 1px),
-      radial-gradient(circle at 50% 50%, var(--accent) 2px, transparent 2px);
-    background-size: 30px 30px, 30px 30px, 60px 60px;
-    background-position: 0 0, 0 0, 15px 15px;
+      repeating-conic-gradient(var(--accent) 0deg 15deg, transparent 15deg 30deg),
+      radial-gradient(circle at 50% 50%, var(--accent) 1px, transparent 1px);
+    background-size: 120px 120px, 60px 60px;
+    opacity:0.05;
   }
   body.theme-arab{ --accent:#1B5E20; }
 
-  /* 4. İspan — испанская керамика (азулежу) */
-  body.theme-spanish .ornament{
-    background-image:
-      linear-gradient(45deg, var(--accent) 25%, transparent 25%),
-      linear-gradient(-45deg, var(--accent) 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, var(--accent) 75%),
-      linear-gradient(-45deg, transparent 75%, var(--accent) 75%);
-    background-size: 24px 24px;
-    background-position: 0 0, 0 12px, 12px -12px, -12px 0;
-  }
+  /* 4. İspan — испанская керамика (реальный SVG) — цвет */
   body.theme-spanish{ --accent:#1565C0; }
 
-  /* 5. İtalyan — акант (листья аканта) */
-  body.theme-italian .ornament{
-    background-image:
-      radial-gradient(ellipse at 30% 20%, var(--accent) 3px, transparent 3px),
-      radial-gradient(ellipse at 70% 40%, var(--accent) 2px, transparent 2px),
-      radial-gradient(ellipse at 20% 70%, var(--accent) 2px, transparent 2px),
-      radial-gradient(ellipse at 80% 80%, var(--accent) 3px, transparent 3px),
-      repeating-linear-gradient(60deg, transparent 0 15px, var(--accent) 15px 16px, transparent 16px 30px);
-    background-size: 60px 60px;
-  }
+  /* 5. İtalyan — акант (реальный PNG) — цвет */
   body.theme-italian{ --accent:#BF360C; }
 
-  /* 6. İngilis — роза Тюдоров */
-  body.theme-english .ornament{
-    background-image:
-      radial-gradient(circle at 50% 50%, var(--accent) 4px, transparent 4px),
-      radial-gradient(circle at 50% 50%, transparent 8px, var(--accent) 8px, transparent 9px),
-      radial-gradient(circle at 50% 50%, transparent 14px, var(--accent) 14px, transparent 15px);
-    background-size: 40px 40px;
-  }
+  /* 6. İngilis — роза Тюдоров (реальный SVG) — цвет */
   body.theme-english{ --accent:#C62828; }
 
-  /* 7. Hindistanlı — мандала с лотосом */
-  body.theme-indian .ornament{
-    background-image:
-      radial-gradient(circle at 50% 50%, var(--accent) 2px, transparent 2px),
-      radial-gradient(circle at 50% 50%, transparent 12px, var(--accent) 12px, transparent 13px),
-      radial-gradient(circle at 50% 50%, transparent 24px, var(--accent) 24px, transparent 25px),
-      radial-gradient(circle at 50% 50%, transparent 36px, var(--accent) 36px, transparent 37px);
-    background-size: 80px 80px;
-  }
+  /* 7. Hindistanlı — мандала (реальный SVG) — цвет */
   body.theme-indian{ --accent:#FF6F00; }
 
-  /* 8. Türk — символы древних тюрков (тамга, волк, солнце) */
-  body.theme-turkish .ornament{
-    background-image:
-      radial-gradient(circle at 50% 40%, var(--accent) 6px, transparent 6px),
-      radial-gradient(circle at 30% 70%, var(--accent) 2px, transparent 2px),
-      radial-gradient(circle at 70% 70%, var(--accent) 2px, transparent 2px),
-      linear-gradient(45deg, var(--accent) 1px, transparent 1px),
-      linear-gradient(-45deg, var(--accent) 1px, transparent 1px);
-    background-size: 50px 50px, 50px 50px, 50px 50px, 25px 25px, 25px 25px;
-  }
+  /* 8. Türk — тюльпан (реальный SVG) — цвет */
   body.theme-turkish{ --accent:#00695C; }
 
-  /* 9. Çinli — дракон и облака */
-  body.theme-chinese .ornament{
-    background-image:
-      radial-gradient(ellipse at 20% 30%, var(--accent) 8px, transparent 8px),
-      radial-gradient(ellipse at 60% 20%, var(--accent) 6px, transparent 6px),
-      radial-gradient(ellipse at 80% 60%, var(--accent) 10px, transparent 10px),
-      radial-gradient(ellipse at 40% 80%, var(--accent) 7px, transparent 7px),
-      radial-gradient(ellipse at 10% 60%, var(--accent) 5px, transparent 5px);
-    background-size: 120px 120px;
-  }
+  /* 9. Çinli — дракон (реальный SVG) — цвет */
   body.theme-chinese{ --accent:#C62828; }
 
-  /* 10 & 13. Alman — готический трилистник */
+  /* 10 & 13. Alman — готический трилистник (CSS) */
   body.theme-german .ornament{
     background-image:
       radial-gradient(circle at 50% 30%, var(--accent) 3px, transparent 3px),
@@ -274,29 +224,10 @@
   }
   body.theme-german{ --accent:#424242; }
 
-  /* 11. Yahudo — менора (семисвечник) */
-  body.theme-jewish .ornament{
-    background-image:
-      linear-gradient(90deg, transparent 0 48%, var(--accent) 48% 52%, transparent 52% 100%),
-      radial-gradient(circle at 50% 30%, var(--accent) 2px, transparent 2px),
-      radial-gradient(circle at 20% 50%, var(--accent) 2px, transparent 2px),
-      radial-gradient(circle at 80% 50%, var(--accent) 2px, transparent 2px),
-      radial-gradient(circle at 35% 65%, var(--accent) 2px, transparent 2px),
-      radial-gradient(circle at 65% 65%, var(--accent) 2px, transparent 2px);
-    background-size: 60px 60px;
-    opacity:0.05;
-  }
+  /* 11. Yahudo — менора (реальный SVG) — цвет */
   body.theme-jewish{ --accent:#1976D2; }
 
-  /* 12. Afrikalı — адинкра (Gye Nyame) */
-  body.theme-african .ornament{
-    background-image:
-      radial-gradient(circle at 50% 50%, var(--accent) 3px, transparent 3px),
-      linear-gradient(45deg, var(--accent) 1px, transparent 1px),
-      linear-gradient(-45deg, var(--accent) 1px, transparent 1px);
-    background-size: 50px 50px, 25px 25px, 25px 25px;
-    opacity:0.06;
-  }
+  /* 12. Afrikalı — Gye Nyame (реальный SVG) — цвет */
   body.theme-african{ --accent:#795548; }
 
   /* 14. Bəşəriyyət — спираль (эволюция) */
@@ -327,7 +258,7 @@
 <body class="theme-chinese">
 
   <div class="numeral">IX</div>
-  <div class="ornament"></div>
+  <div class="ornament" style="background-image: url('../../assets/ornaments/chinese_dragon.svg'); background-size: 200px 200px; background-repeat: repeat; opacity: 0.08;"></div>
 
   <div class="stage has-portrait">
     <div class="eyebrow">Bəb 9</div>

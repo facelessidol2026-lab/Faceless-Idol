@@ -33,6 +33,18 @@ THEME_MAP = {
     15: "theme-epilog",
 }
 
+# Реальные орнаменты (изображения) для глав, где скачаны из интернета
+ORNAMENT_IMAGES = {
+    4: "spanish_moorish_tile.svg",
+    5: "italian_acanthus.png",
+    6: "english_tudor_rose.svg",
+    7: "indian_mandala.svg",
+    8: "turkish_tulip.svg",
+    9: "chinese_dragon.svg",
+    11: "jewish_menorah.svg",
+    12: "african_gye_nyame.svg",
+}
+
 ROMAN_MAP = [
     (1000, "M"), (900, "CM"), (500, "D"), (400, "CD"),
     (100, "C"), (90, "XC"), (50, "L"), (40, "XL"),
@@ -73,6 +85,14 @@ def main():
                         f'alt="{title}"></div>' if has_portrait else "")
         theme = THEME_MAP.get(num, "theme-default")
 
+        # Орнамент: реальное изображение или CSS-паттерн
+        if num in ORNAMENT_IMAGES:
+            ornament_file = ORNAMENT_IMAGES[num]
+            ornament_style = (f"background-image: url('../../assets/ornaments/{ornament_file}'); "
+                              f"background-size: 200px 200px; background-repeat: repeat; opacity: 0.08;")
+        else:
+            ornament_style = ""
+
         page = (template
                 .replace("{{NUM}}", str(num))
                 .replace("{{ROMAN}}", to_roman(num))
@@ -80,7 +100,8 @@ def main():
                 .replace("{{AUDIO}}", f"../../audio/{audio_file}")
                 .replace("{{PORTRAIT_CLASS}}", portrait_class)
                 .replace("{{PORTRAIT_IMG}}", portrait_img)
-                .replace("{{THEME}}", theme))
+                .replace("{{THEME}}", theme)
+                .replace("{{ORNAMENT_STYLE}}", ornament_style))
 
         page_dir = ch_dir / str(num)
         page_dir.mkdir(parents=True, exist_ok=True)
